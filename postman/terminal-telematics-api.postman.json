@@ -1,0 +1,2018 @@
+{
+  "_": {
+    "postman_id": "303daa5e-544d-4169-804e-3a049ae62871"
+  },
+  "item": [
+    {
+      "id": "ca6ba292-7cd0-4645-a85f-9842d0e33f8d",
+      "name": "Authentication",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "14c3a1ab-b859-4940-9ae8-113e1cd559bd",
+          "name": "Public Token Exchange",
+          "request": {
+            "name": "Public Token Exchange",
+            "description": {
+              "content": "Exchange the `publicToken` returned by our hosted authentication flow for a long lived connection token that will be used when requesting data from a customer's TSP.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public-token",
+                "exchange"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"publicToken\": \"INSERT_PUBLIC_TOKEN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0383c2c6-67a3-4665-aad1-d197f36a70a6",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resToken = jsonData?.token;\n",
+                  "// pm.collectionVariables - Set connectionToken as variable for jsonData.token\nif (_resToken !== undefined) {\n   pm.collectionVariables.set(\"connectionToken\", jsonData.token);\n   console.log(\"- use {{connectionToken}} as collection variable for value\",jsonData.token);\n} else {\n   console.log('INFO - Unable to assign variable {{connectionToken}}, as jsonData.token is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "475f77fd-ff30-4738-8f88-f2734036f5b9",
+      "name": "Connections",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b57ff8e-03fd-41d8-a5db-1b3bdcdacc31",
+          "name": "List All Connections",
+          "request": {
+            "name": "List All Connections",
+            "description": {
+              "content": "List all of the connections you have for your application. Connections represent the authenticated access you have to your customer's TSP data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "key": "externalId",
+                  "value": "123"
+                },
+                {
+                  "disabled": true,
+                  "key": "dotNumber",
+                  "value": "123"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "6d7063a2-bad0-4b23-be49-f82c0e353d0f",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db619fd1-047e-45d1-be2d-163de43907c4",
+          "name": "Get Current Connection",
+          "request": {
+            "name": "Get Current Connection",
+            "description": {
+              "content": "Get the details of the current active connection. The current connection is derived from the provided connection token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connections",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "813a1c2a-784c-4de4-8d66-f0cb8dfef22a",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8aa2f43a-2f61-46e4-a411-11090d85b05a",
+          "name": "Update Current Connection",
+          "request": {
+            "name": "Update Current Connection",
+            "description": {
+              "content": "Update the details of the current active connection. The current connection is derived from the provided connection token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connections",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company\": {\n    \"name\": \"Acme Inc.\"\n  },\n  \"externalId\": \"Ut sunt sit\",\n  \"syncMode\": \"automatic\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "41592127-e31d-4906-bea6-1b7d99c79200",
+      "name": "Data Management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "21ab3849-89e8-4021-9903-ac5fe14563c5",
+          "name": "Request Sync",
+          "request": {
+            "name": "Request Sync",
+            "description": {
+              "content": "Manually request to sync the current connections data.\n\nBy default, Terminal will sync all connections where `syncMode = automatic` on a regular cadence. For customers that may not need a fleet's data to be kept up to date and want to reduce their active tracked trucks, you can set `syncMode = manual` and invoke this endpoint when you want to sync data.\n\nIf you're wondering if this is relevent to your use case then feel free to reach out and we'd be happy to assist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "syncs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"days\": 7\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "b738a6d3-57df-4c96-85b8-aabf117f2ea3",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resId = jsonData?.id;\n",
+                  "// pm.collectionVariables - Set syncId as variable for jsonData.id\nif (_resId !== undefined) {\n   pm.collectionVariables.set(\"syncId\", jsonData.id);\n   console.log(\"- use {{syncId}} as collection variable for value\",jsonData.id);\n} else {\n   console.log('INFO - Unable to assign variable {{syncId}}, as jsonData.id is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35a4a945-9424-4446-b3d0-be519093786c",
+          "name": "List Sync History",
+          "request": {
+            "name": "List Sync History",
+            "description": {
+              "content": "List a log of all batch sync jobs for the current connection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "syncs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "key": "status",
+                  "value": "in_progress"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "3875e037-9ecc-4305-8b10-161fcd7dec9f",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n",
+                  "// Set property value as variable\nconst _resResults0Id = jsonData?.results?.[0]?.id;\n",
+                  "// pm.collectionVariables - Set syncId as variable for jsonData.results[0].id\nif (_resResults0Id !== undefined) {\n   pm.collectionVariables.set(\"syncId\", jsonData.results[0].id);\n   console.log(\"- use {{syncId}} as collection variable for value\",jsonData.results[0].id);\n} else {\n   console.log('INFO - Unable to assign variable {{syncId}}, as jsonData.results[0].id is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3303511-6c96-4faf-ba14-2320ff04b0ba",
+          "name": "Get Sync Job Status",
+          "request": {
+            "name": "Get Sync Job Status",
+            "description": {
+              "content": "Get the status of a sync job by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "syncs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ",
+                    "type": "text/plain"
+                  },
+                  "type": "string",
+                  "value": "{{syncId}}",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "13e2813f-9168-4a2a-9971-5b3fcf4da710",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c1fb1c5-e38b-40b0-8351-0d8bafa0a1e4",
+          "name": "Passthrough",
+          "request": {
+            "name": "Passthrough",
+            "description": {
+              "content": "Make an authenticated request to the underlying telematics provider. \n\nThis endpoint helps ensure that you are never limited by Terminal. You can use passthrough requests to access capabilities that may be limited to a specific TSP or not yet in the normalized model.\n\nOur team is here an ready to support custom use cases that may need `/passthrough`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "passthrough"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"POST\",\n  \"path\": \"/reports\",\n  \"headers\": {},\n  \"body\": \"{\\\"reportId\\\":\\\"1234\\\"}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5a921519-d745-4b5e-ab82-999c7bde948d",
+      "name": "Drivers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4b134844-9bdb-4691-adc3-9eed611e70cb",
+          "name": "List Drivers",
+          "request": {
+            "name": "List Drivers",
+            "description": {
+              "content": "List all of the drivers in the connected account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drivers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "eb2b43fd-0ce0-4984-9d6b-29eb4e6d0711",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n",
+                  "// Set property value as variable\nconst _resResults0Id = jsonData?.results?.[0]?.id;\n",
+                  "// pm.collectionVariables - Set driverId as variable for jsonData.results[0].id\nif (_resResults0Id !== undefined) {\n   pm.collectionVariables.set(\"driverId\", jsonData.results[0].id);\n   console.log(\"- use {{driverId}} as collection variable for value\",jsonData.results[0].id);\n} else {\n   console.log('INFO - Unable to assign variable {{driverId}}, as jsonData.results[0].id is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f54ac3e-86d3-47be-8f08-d0f8ccba8bc5",
+          "name": "Get Driver",
+          "request": {
+            "name": "Get Driver",
+            "description": {
+              "content": "Get the details of a specific driver",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drivers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ",
+                    "type": "text/plain"
+                  },
+                  "type": "string",
+                  "value": "{{driverId}}",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "29cec904-404d-4816-a312-31a8d18e8000",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "07ae4abf-9a57-4623-b79c-42ea144bc0b1",
+      "name": "Groups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b2957bb-8f29-40ec-97fe-5537ccc0745c",
+          "name": "List Groups",
+          "request": {
+            "name": "List Groups",
+            "description": {
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "229bd5b6-c212-42c6-bc73-8df87046f98f",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "27a2eb31-a248-44e4-9acf-7af6f180cb16",
+      "name": "Hours of Service",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f625fcd-cf85-40fb-856b-8df534efd22e",
+          "name": "List Hours of Service Logs",
+          "request": {
+            "name": "List Hours of Service Logs",
+            "description": {
+              "content": "List all hours of service logs. Currently, HOS logs are tracked as the distinct changes in duty status. In the future we will be offering endpoints to expose current HOS status and historical daily summaries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hos",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records of statuses that started after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "startedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records of statuses that started before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "startedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Comma separated list of driver IDs to filter for",
+                    "type": "text/plain"
+                  },
+                  "key": "driverIds",
+                  "value": "{{driverId}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c76f063e-f47f-41cc-b7eb-048d2564859a",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db4b6bab-0b93-48ab-a042-6b7dda8d9df6",
+          "name": "List Available Time for Drivers",
+          "request": {
+            "name": "List Available Time for Drivers",
+            "description": {
+              "content": "List available time for the driver. This endpoint provides live access to the driver's available time. Different than most endpoints, this endpoint calls the provider's API in real time to get the latest available time for the driver. This endpoint is useful for building real time applications that need to know the driver's available time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hos",
+                "available-time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Comma separated list of driver IDs to filter for",
+                    "type": "text/plain"
+                  },
+                  "key": "driverIds",
+                  "value": "{{driverId}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "57be1e35-c6a2-4332-83d8-51f891b0e073",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7023734e-f9e2-47f8-800c-e100e72a11ab",
+          "name": "List Hours of Service Daily Logs",
+          "request": {
+            "name": "List Hours of Service Daily Logs",
+            "description": {
+              "content": "List daily summary of hours of service. Each daily log represents the time a driver spent in each duty status for a given day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hos",
+                "daily-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Only include daily logs from on or after a specific date",
+                    "type": "text/plain"
+                  },
+                  "key": "startDate",
+                  "value": "1965-02-09"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Only include daily logs from on or before a specific date",
+                    "type": "text/plain"
+                  },
+                  "key": "endDate",
+                  "value": "1965-02-09"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Comma separated list of driver IDs to filter for",
+                    "type": "text/plain"
+                  },
+                  "key": "driverIds",
+                  "value": "{{driverId}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "66fc5f23-1372-4648-a2f2-f8953c7c853c",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b20cd9eb-8d05-4beb-be5c-d6471af91c47",
+      "name": "Safety",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7dae9cb0-b10c-4b60-9472-bfc470aa2023",
+          "name": "List Safety Events",
+          "request": {
+            "name": "List Safety Events",
+            "description": {
+              "content": "List all safety events detected by the provider.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "safety",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records of statuses that started after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "startedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records of statuses that started before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "startedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Comma separated list of driver IDs to filter for",
+                    "type": "text/plain"
+                  },
+                  "key": "driverIds",
+                  "value": "{{driverId}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Comma separated list of vehicle IDs to filter for",
+                    "type": "text/plain"
+                  },
+                  "key": "vehicleIds",
+                  "value": "{{vehicleId}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "987e1106-eed5-4b06-92d2-a82c49cb6a56",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7ee07a1b-9ce1-4f38-ba23-90673f9bbc72",
+      "name": "Vehicles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8411432e-9783-402e-a9b5-3837d6718543",
+          "name": "List Vehicles",
+          "request": {
+            "name": "List Vehicles",
+            "description": {
+              "content": "List all of the vehicles in the connected account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified after a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedAfter",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Only include records that were last modified before a provided date.",
+                    "type": "text/plain"
+                  },
+                  "key": "modifiedBefore",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bf7dd065-75f6-4aeb-9667-7c7d2b778f4d",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n",
+                  "// Set property value as variable\nconst _resResults0Id = jsonData?.results?.[0]?.id;\n",
+                  "// pm.collectionVariables - Set vehicleId as variable for jsonData.results[0].id\nif (_resResults0Id !== undefined) {\n   pm.collectionVariables.set(\"vehicleId\", jsonData.results[0].id);\n   console.log(\"- use {{vehicleId}} as collection variable for value\",jsonData.results[0].id);\n} else {\n   console.log('INFO - Unable to assign variable {{vehicleId}}, as jsonData.results[0].id is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c47ea401-113c-46d7-94af-273a8bff99bd",
+          "name": "Get Vehicle",
+          "request": {
+            "name": "Get Vehicle",
+            "description": {
+              "content": "Get the details of a specific vehicle",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicles",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ",
+                    "type": "text/plain"
+                  },
+                  "type": "string",
+                  "value": "{{vehicleId}}",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "7ae350b8-042b-493b-bedd-66ff87dbdc8b",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a0dc950-8379-4214-89ad-fcca6d10faa4",
+          "name": "Current Vehicle Locations",
+          "request": {
+            "name": "Current Vehicle Locations",
+            "description": {
+              "content": "List the current location of the vehicles in the connected account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicles",
+                "locations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{vehicleId}}",
+                  "key": "id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "d004aae1-0a10-4e22-829d-40cac6a13c6e",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b944e566-4eab-45ca-9de2-1157f28ea8e3",
+          "name": "Historical Vehicle Locations",
+          "request": {
+            "name": "Historical Vehicle Locations",
+            "description": {
+              "content": "List the historical breadcrumb locations for a vehicle.\n\n*Note:*\n\nGiven the large volume of location data available, we encourage customers to accept compressed (`gzip`) responses in order to maximize throughput. This is supported with many popular HTTP clients. Result limits vary depending on if results are compressed or not.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicles",
+                ":vehicleId",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Timestamp to start from - defaults to `TODAY - 1 MONTH`",
+                    "type": "text/plain"
+                  },
+                  "key": "startAt",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Timestamp to end at - defaults to `TODAY`",
+                    "type": "text/plain"
+                  },
+                  "key": "endAt",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Vehicle to retrieve breadcrumb locations for",
+                    "type": "text/plain"
+                  },
+                  "type": "string",
+                  "value": "{{vehicleId}}",
+                  "key": "vehicleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "585ee71e-2d55-4304-bffe-e06cb6f21d92",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5855e7b6-b37b-4d0e-a8e1-289217ebef72",
+          "name": "Historical Vehicle Stats",
+          "request": {
+            "name": "Historical Vehicle Stats",
+            "description": {
+              "content": "List historical stats and logs about the vehicle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicles",
+                ":vehicleId",
+                "stats",
+                "historical"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Pagination cursor to start requests from",
+                    "type": "text/plain"
+                  },
+                  "key": "cursor",
+                  "value": "{{nextCursor}}"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "The maximum number of results to return in a page.",
+                    "type": "text/plain"
+                  },
+                  "key": "limit",
+                  "value": "1"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Expand resources in the returned response",
+                    "type": "text/plain"
+                  },
+                  "key": "expand",
+                  "value": "vehicle"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Timestamp to start from - defaults to `TODAY - 1 MONTH`",
+                    "type": "text/plain"
+                  },
+                  "key": "startAt",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Timestamp to end at - defaults to `TODAY`",
+                    "type": "text/plain"
+                  },
+                  "key": "endAt",
+                  "value": "2011-05-30T05:17:47.645Z"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Comma separated list of vehicle stats to filter for",
+                    "type": "text/plain"
+                  },
+                  "key": "types",
+                  "value": "odometer,engine_state"
+                },
+                {
+                  "disabled": true,
+                  "description": {
+                    "content": "Include raw responses used to normalize model. Used for debugging or accessing unique properties that are not unified.",
+                    "type": "text/plain"
+                  },
+                  "key": "raw",
+                  "value": "true"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ",
+                    "type": "text/plain"
+                  },
+                  "type": "string",
+                  "value": "{{vehicleId}}",
+                  "key": "vehicleId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": {
+                  "content": "(Required) The token returned when a user authenticated their account. This authorizes access to a specific account.",
+                  "type": "text/plain"
+                },
+                "key": "Connection-Token",
+                "value": "{{connectionToken}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "934b6c45-8bc2-4bda-820c-5938587da5f3",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resNext = jsonData?.next;\n",
+                  "// pm.collectionVariables - Set nextCursor as variable for jsonData.next\nif (_resNext !== undefined) {\n   pm.collectionVariables.set(\"nextCursor\", jsonData.next);\n   console.log(\"- use {{nextCursor}} as collection variable for value\",jsonData.next);\n} else {\n   console.log('INFO - Unable to assign variable {{nextCursor}}, as jsonData.next is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "type": "any",
+        "value": "{{secretKey}}",
+        "key": "token"
+      }
+    ]
+  },
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sandbox.withterminal.com/tsp/v1/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "303daa5e-544d-4169-804e-3a049ae62871",
+    "name": "Telematics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Terminal is a unified API that makes it easy to integrate with the leading telematics service providers.\n\nContact Support:\n Name: Terminal\n Email: connect@withterminal.com",
+      "type": "text/plain"
+    }
+  }
+}

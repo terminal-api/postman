@@ -1,0 +1,248 @@
+{
+  "globals": {
+    "stripResponseExamples": true,
+    "keyValueReplacements": {
+      "Connection-Token": "{{connectionToken}}"
+    },
+    "valueReplacements": {
+      "{{bearerToken}}": "{{secretKey}}"
+    }
+  },
+  "assignVariables": [
+    {
+      "openApiOperation": "POST::/public-token/exchange",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "token",
+          "name": "connectionToken"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::*",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "next",
+          "name": "nextCursor"
+        }
+      ]
+    },
+
+    {
+      "openApiOperation": "GET::/vehicles",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "results[0].id",
+          "name": "vehicleId"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/drivers",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "results[0].id",
+          "name": "driverId"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "POST::/syncs",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "id",
+          "name": "syncId"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/syncs",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "results[0].id",
+          "name": "syncId"
+        }
+      ]
+    }
+  ],
+  "overwrites": [
+    {
+      "openApiOperation": "GET::*",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "cursor",
+          "value": "{{nextCursor}}",
+          "overwrite": true,
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "externalId",
+          "disable": true,
+          "insert": false,
+          "value": "123"
+        },
+        {
+          "key": "dotNumber",
+          "disable": true,
+          "insert": false,
+          "value": "123"
+        },
+        {
+          "key": "limit",
+          "disable": true,
+          "insert": false,
+          "value": "1"
+        },
+        {
+          "key": "modifiedBefore",
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "modifiedAfter",
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "startedBefore",
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "startedAfter",
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "expand",
+          "disable": true,
+          "insert": false,
+          "value": "vehicle"
+        },
+        {
+          "key": "raw",
+          "disable": true,
+          "insert": false,
+          "value": "true"
+        },
+        {
+          "key": "driverIds",
+          "disable": true,
+          "insert": false,
+          "value": "{{driverId}}"
+        },
+        {
+          "key": "vehicleIds",
+          "disable": true,
+          "insert": false,
+          "value": "{{vehicleId}}"
+        },
+        {
+          "key": "startAt",
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "endAt",
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "connectionId",
+          "disable": true,
+          "insert": false
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/link/options",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "provider",
+          "disable": true,
+          "insert": false,
+          "value": "sandbox"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "POST::/public-token/exchange",
+      "overwriteRequestBody": [
+        {
+          "key": "publicToken",
+          "value": "INSERT_PUBLIC_TOKEN",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/vehicles/{id}",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "{{vehicleId}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/vehicles/{vehicleId}/locations",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "vehicleId",
+          "value": "{{vehicleId}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/vehicles/{vehicleId}/stats/historical",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "vehicleId",
+          "value": "{{vehicleId}}",
+          "overwrite": true
+        }
+      ],
+      "overwriteRequestQueryParams": [
+        {
+          "key": "types",
+          "disable": true,
+          "insert": false
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/drivers/{id}",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "{{driverId}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/syncs",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "status",
+          "disable": true,
+          "insert": false,
+          "value": "in_progress"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/syncs/{id}",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "{{syncId}}",
+          "overwrite": true
+        }
+      ]
+    }
+  ]
+}
