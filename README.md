@@ -1,6 +1,6 @@
 # Terminal Postman Collection
 
-## Usage
+## Usage 🚀
 
 1. Download the generated collection [here](./postman) ✨
 2. Import the collection into Postman
