@@ -2,7 +2,7 @@
 
 View + download the generated collection [here](./postman) ✨
 
-### Development ⚒️
+## Development ⚒️
 
 #### Setup Project
 Setup the project if you haven't already:
