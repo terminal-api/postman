@@ -1,17 +1,20 @@
 # Terminal Postman Collection
 
-Terminal generates a Postman collection from our OpenAPI spec. 
+View + download the generated collection [here](./postman) ✨
 
-> View + download the generated collection [here](./postman) ✨
+### Development ⚒️
 
-## Development
-
-To generate the collection, run:
+#### Setup Project
+Setup the project if you haven't already:
 
 ```bash
-# if you haven't already, install the dependencies
+git clone git@github.com:terminal-api/postman.git
 npm install
+```
 
-# generate the collection
+#### Generate Collection
+Generate the collection using the following command:
+
+```bash
 npm run generate
 ```
