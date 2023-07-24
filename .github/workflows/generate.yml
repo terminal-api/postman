@@ -28,7 +28,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run Script
-        run: npm generate
+        run: npm run generate
       - name: Commit and push if changed
         run: |
           git diff
