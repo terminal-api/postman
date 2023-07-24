@@ -10,5 +10,5 @@ To generate the collection, run:
 
 ```bash
 # ensure you run `npm install`` first
-npm generate
+npm run generate
 ```
