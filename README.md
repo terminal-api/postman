@@ -9,6 +9,9 @@ Terminal generates a Postman collection from our OpenAPI spec.
 To generate the collection, run:
 
 ```bash
-# ensure you run `npm install`` first
+# if you haven't already, install the dependencies
+npm install
+
+# generate the collection
 npm run generate
 ```
