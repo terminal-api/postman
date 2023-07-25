@@ -28,6 +28,12 @@ This collection uses the following variables to make it easy to chain requests t
 
 > **Note:** You can set these variables in your environment or collection. Some will be set automatically for you based on the response of previous requests.
 
+### Getting Started Video 🎥
+
+Here's a video that shows you how you can get started with Terminal
+
+<div style="position: relative; padding-bottom: 64.90384615384616%; height: 0;"><iframe src="https://www.loom.com/embed/c8f94e90f97146a58b94401c2838166c?sid=fbbffdc5-6378-4038-bd9d-2e5e2813f8e4" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
 ### Connection Tokens
 
 Terminal uses connection tokens to authenticate requests targeting a specific connection. Please set a `connectionToken` variable in your collection's variables to use connection tokens. You can retrieve connection tokens in the dashboard or by calling `GET /connections`.
