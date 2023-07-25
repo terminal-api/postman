@@ -16,18 +16,6 @@
 4. Select the environment you want to use in the top right corner of Postman
 5. Make requests!
 
-### Variables
-
-This collection uses the following variables to make it easy to chain requests together:
-- `baseUrl`
-- `secretKey`
-- `connectionToken`
-- `vehicleId`
-- `driverId`
-- `syncId`
-
-> **Note:** You can set these variables in your environment or collection. Some will be set automatically for you based on the response of previous requests.
-
 ### Getting Started Video 🎥
 
 Here's a video that shows you how you can get started with Terminal
@@ -40,6 +28,18 @@ Here's a video that shows you how you can get started with Terminal
       <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/c8f94e90f97146a58b94401c2838166c-with-play.gif">
     </a>
   </div>
+
+### Variables
+
+This collection uses the following variables to make it easy to chain requests together:
+- `baseUrl`
+- `secretKey`
+- `connectionToken`
+- `vehicleId`
+- `driverId`
+- `syncId`
+
+> **Note:** You can set these variables in your environment or collection. Some will be set automatically for you based on the response of previous requests.
 
 ### Connection Tokens
 
