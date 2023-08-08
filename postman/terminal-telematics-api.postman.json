@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "db450995-766f-4c2e-b202-77272e4a2991"
+    "postman_id": "20a7bfee-730a-43a2-a8b1-fe01023e0292"
   },
   "item": [
     {
-      "id": "28dee641-f77c-4a0d-8741-04d3c222c7c1",
+      "id": "b5d7e49d-d51b-4f0d-b455-07e2fb8945d9",
       "name": "Authentication",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "edda4e20-bbab-4f4a-9661-65c324d9d27b",
+          "id": "ea579ba0-1bc1-407d-832f-898f85da8f5d",
           "name": "Public Token Exchange",
           "request": {
             "name": "Public Token Exchange",
@@ -57,7 +57,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "a564f5c6-98bf-4b34-9ab8-0d35627b3cfa",
+                "id": "c3d1146d-8fc9-4f6c-9a57-f91302a0dad7",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -75,7 +75,7 @@
       "event": []
     },
     {
-      "id": "429bdcfa-791f-4e9e-bfca-8eba90565efb",
+      "id": "c4370350-c750-443f-a8f9-08bb23b32e89",
       "name": "Connections",
       "description": {
         "content": "",
@@ -83,7 +83,7 @@
       },
       "item": [
         {
-          "id": "a25a00a2-7ae8-42a8-acca-d042f8031b11",
+          "id": "779888e2-21ac-4809-8978-c2646bf2118a",
           "name": "List All Connections",
           "request": {
             "name": "List All Connections",
@@ -143,7 +143,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "6244c1af-d39d-4563-97df-5566b31d808b",
+                "id": "44048c76-384e-47c9-b6d2-a70b5f9482a6",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -158,7 +158,53 @@
           }
         },
         {
-          "id": "d1afc80e-a55d-42d0-89f5-7877dbdecd26",
+          "id": "72dc2e3b-3b62-4cc2-8e04-7e014d9d584e",
+          "name": "[beta] Create Connection",
+          "request": {
+            "name": "[beta] Create Connection",
+            "description": {
+              "content": "Create a new connection via API. This endpoint can be used to provide a completely custom connection creation experience for your customers.\n\nFor most use cases we recommend using the [Link UI](./rhuaxk9205cn8-link-component) to create connections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"geotab\",\n  \"credentials\": {\n    \"username\": \"eiusmod laborum\",\n    \"password\": \"id quis ad reprehenderit\",\n    \"database\": \"commodo est\"\n  },\n  \"company\": {\n    \"name\": \"exercitation nostrud ex \",\n    \"dotNumbers\": [\n      \"amet qui incididunt\",\n      \"tempor Lorem\"\n    ]\n  },\n  \"externalId\": \"est s\",\n  \"syncMode\": \"automatic\",\n  \"backfill\": {\n    \"startFrom\": \"2021-01-06T03:24:53.000Z\",\n    \"days\": -35678259.6463169\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46470d38-1996-404b-872a-0ca936552147",
           "name": "Get Current Connection",
           "request": {
             "name": "Get Current Connection",
@@ -199,7 +245,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "25c3233f-da94-4c14-a224-42e57eafdafc",
+                "id": "2a344993-80f1-4970-9db0-c7a8962676da",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -214,7 +260,7 @@
           }
         },
         {
-          "id": "91cbe5a8-2786-4757-8b60-08f5a54dcb10",
+          "id": "401dcc08-64e3-4965-8963-ae1633cca699",
           "name": "Update Current Connection",
           "request": {
             "name": "Update Current Connection",
@@ -255,7 +301,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"incididunt velit aliqua eu\",\n  \"company\": {\n    \"name\": \"Acme Inc.\"\n  },\n  \"externalId\": \"consequat et reprehenderit velit enim\",\n  \"syncMode\": \"automatic\"\n}",
+              "raw": "{\n  \"status\": \"tempor ullamco\",\n  \"company\": {\n    \"name\": \"Acme Inc.\"\n  },\n  \"externalId\": \"irure sed magna\",\n  \"syncMode\": \"automatic\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -273,7 +319,7 @@
       "event": []
     },
     {
-      "id": "c7993935-e31c-4d20-9317-5e40da330002",
+      "id": "eade7900-ee42-4875-b724-bcdee9f64b86",
       "name": "Data Management",
       "description": {
         "content": "",
@@ -281,7 +327,7 @@
       },
       "item": [
         {
-          "id": "facf094b-a503-401d-96e5-36be474039f7",
+          "id": "a0f54008-aeb7-455e-acb2-2bc0bb666f18",
           "name": "Request Sync",
           "request": {
             "name": "Request Sync",
@@ -334,7 +380,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d7ef347c-ee33-4b7e-9b30-26dd3f859956",
+                "id": "ac976dd6-c1ba-427b-bd4b-9ec6eaf83f8e",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -349,7 +395,7 @@
           }
         },
         {
-          "id": "3dbca1fd-466e-4851-b10c-13a8b71e06af",
+          "id": "36d8390d-305d-4a0e-b77d-7f89008b2661",
           "name": "List Sync History",
           "request": {
             "name": "List Sync History",
@@ -413,7 +459,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "4b44a836-df60-4792-b3d2-97bcdba72275",
+                "id": "0515ab67-b714-42b1-ba4f-c17522919691",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -430,7 +476,7 @@
           }
         },
         {
-          "id": "511267fc-d565-4bb7-ada3-63c182f1b113",
+          "id": "d101c9da-7a85-46f5-b62f-f4924ea73bc3",
           "name": "Get Sync Job Status",
           "request": {
             "name": "Get Sync Job Status",
@@ -482,7 +528,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "e9e3c8b4-10f6-42e6-a99c-a1742f456343",
+                "id": "5503be80-fca0-438d-b944-3ad85420a885",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -497,7 +543,7 @@
           }
         },
         {
-          "id": "3104f6d6-0df1-43f6-b6ee-b2a639d21435",
+          "id": "c5a6caab-672c-4060-8011-f318fc5a0adf",
           "name": "Passthrough",
           "request": {
             "name": "Passthrough",
@@ -555,7 +601,7 @@
       "event": []
     },
     {
-      "id": "c28f5bf4-0b15-48d6-98ed-9193d44e4a8b",
+      "id": "68d68454-69b1-4775-befe-a33c0b21b317",
       "name": "Drivers",
       "description": {
         "content": "",
@@ -563,7 +609,7 @@
       },
       "item": [
         {
-          "id": "a0e11040-1aa3-4287-9007-36a3fe702cf9",
+          "id": "99427a56-9ba1-4c72-a83d-44532e56b887",
           "name": "List Drivers",
           "request": {
             "name": "List Drivers",
@@ -658,7 +704,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "282b742e-8fc1-4488-963e-709e11045243",
+                "id": "1474399d-fe25-494b-b729-eec8234e4ef6",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -675,7 +721,7 @@
           }
         },
         {
-          "id": "7fba7de0-ea3f-4257-bbe5-349aa138fe99",
+          "id": "e1eed598-8f9d-4367-987a-7ae73f703cf8",
           "name": "Get Driver",
           "request": {
             "name": "Get Driver",
@@ -746,7 +792,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "85a754a7-8ef7-4b28-ac30-3379b4fb7138",
+                "id": "cf94f767-2c5e-42d1-a49d-cbcfc84f6be7",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -764,7 +810,7 @@
       "event": []
     },
     {
-      "id": "fc39b851-c3ec-4183-b0d7-a49f5a9a2691",
+      "id": "e64694d5-99a9-4c4b-8902-778af2754065",
       "name": "Groups",
       "description": {
         "content": "",
@@ -772,7 +818,7 @@
       },
       "item": [
         {
-          "id": "6b9856cf-867a-4935-962c-dae3021e2b89",
+          "id": "476c6c96-b070-41a5-8a20-4f43f4c68f71",
           "name": "List Groups",
           "request": {
             "name": "List Groups",
@@ -866,7 +912,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "fe83ed51-3e92-413b-a23c-c903c23a6fb9",
+                "id": "3466d0c3-9762-4240-9aa0-1c07136caa07",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -884,7 +930,7 @@
       "event": []
     },
     {
-      "id": "90fddf53-f2a1-4977-904c-71803fc42e64",
+      "id": "ba225d3d-3119-4ce7-b28e-fd0d23a9c40e",
       "name": "Hours of Service",
       "description": {
         "content": "",
@@ -892,7 +938,7 @@
       },
       "item": [
         {
-          "id": "7b82de88-3edf-404e-8194-9f0942a780e7",
+          "id": "2210cb45-f55e-4148-ba3f-774c9f5e6992",
           "name": "Available Time for Drivers",
           "request": {
             "name": "Available Time for Drivers",
@@ -979,7 +1025,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "2280eecf-5f8d-45a6-8275-4e85d205e4d2",
+                "id": "c541efe4-9f90-48d2-8480-abf4be459075",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -994,7 +1040,7 @@
           }
         },
         {
-          "id": "1e624530-b9e6-46d8-a122-03b9c0aaa60d",
+          "id": "b9e7b888-e3db-4055-a5f0-8bcbceffad1b",
           "name": "List HOS Logs",
           "request": {
             "name": "List HOS Logs",
@@ -1117,7 +1163,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "37fc5f58-2da5-4263-8f5c-490d2290e054",
+                "id": "6e5d422b-5da0-48b3-af0a-ac7ad7880011",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1132,7 +1178,7 @@
           }
         },
         {
-          "id": "e0f6cf7b-74c1-4cbb-bdc8-14941545d2e6",
+          "id": "a0c67b5c-5a4d-40be-9e1b-0b0d3a80f8ec",
           "name": "List HOS Daily Logs",
           "request": {
             "name": "List HOS Daily Logs",
@@ -1174,7 +1220,7 @@
                     "type": "text/plain"
                   },
                   "key": "startDate",
-                  "value": "2005-10-07"
+                  "value": "1993-06-29"
                 },
                 {
                   "disabled": false,
@@ -1183,7 +1229,7 @@
                     "type": "text/plain"
                   },
                   "key": "endDate",
-                  "value": "2005-10-07"
+                  "value": "1993-06-29"
                 },
                 {
                   "disabled": true,
@@ -1255,7 +1301,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "63f29474-b8a9-4026-b4a6-b0e5933c2aec",
+                "id": "355cb877-607f-4673-a0c8-07338984d934",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1273,7 +1319,7 @@
       "event": []
     },
     {
-      "id": "e5f27c0e-28e9-4bdd-ad08-ffeea2f33d43",
+      "id": "aa8d833f-315a-4f95-b87c-51e84ea43777",
       "name": "Safety",
       "description": {
         "content": "",
@@ -1281,7 +1327,7 @@
       },
       "item": [
         {
-          "id": "78933289-a944-4b60-8f9e-50505684fe09",
+          "id": "c9f82340-9e53-496f-8492-02e8de6ded8a",
           "name": "List Safety Events",
           "request": {
             "name": "List Safety Events",
@@ -1413,7 +1459,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "12aaab08-4875-420b-bb4d-a40eac270f38",
+                "id": "89105288-7f61-43e4-9f15-ce6a97ad29d1",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1431,7 +1477,7 @@
       "event": []
     },
     {
-      "id": "d28568a4-d4a0-4db2-9a09-88c2ea789c36",
+      "id": "5ac8a688-2cd9-4932-8bc3-07e56766d243",
       "name": "Vehicles",
       "description": {
         "content": "",
@@ -1439,7 +1485,7 @@
       },
       "item": [
         {
-          "id": "0aa45838-00a6-4f73-baba-31b5f7447b49",
+          "id": "49ca9dae-9a91-424b-aec3-6deb08236ce5",
           "name": "List Vehicles",
           "request": {
             "name": "List Vehicles",
@@ -1534,7 +1580,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "4f0a82c9-d195-4aae-ae8a-7419c4237706",
+                "id": "fd03c699-3334-44c5-9990-b5692bdef133",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1551,7 +1597,7 @@
           }
         },
         {
-          "id": "c46b363c-ca6d-4200-ab3c-8c926a9719cb",
+          "id": "30a216a7-a3f2-474a-bddf-9be5561af5ba",
           "name": "Get Vehicle",
           "request": {
             "name": "Get Vehicle",
@@ -1622,7 +1668,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "9846c321-4ab2-4c20-9092-bb0a6c6b7e94",
+                "id": "f8c0c44e-0028-4d53-9605-c52f0f0774ae",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1637,7 +1683,7 @@
           }
         },
         {
-          "id": "4a81d16f-1d71-4902-9bda-4f1c3b738c80",
+          "id": "b2b5ef43-8530-480b-a8d3-3282c3d92d04",
           "name": "Current Vehicle Locations",
           "request": {
             "name": "Current Vehicle Locations",
@@ -1723,7 +1769,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "64be187d-00e9-432f-ba6d-595ccd15157e",
+                "id": "676817bd-8d6b-4c2e-a95a-6573c19a923d",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1738,7 +1784,7 @@
           }
         },
         {
-          "id": "49457852-d710-4382-a331-88f8a21ac968",
+          "id": "3c31e659-2565-4a2a-8437-f3220a2ae3e7",
           "name": "Historical Vehicle Locations",
           "request": {
             "name": "Historical Vehicle Locations",
@@ -1837,7 +1883,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "b7f44a54-2d29-4579-b9bf-57dd01cfc7e6",
+                "id": "c8bbc71f-5305-453a-b0d7-cc72637d8fa9",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1852,7 +1898,7 @@
           }
         },
         {
-          "id": "2707be12-1d2e-4a50-909e-91fc49ea2bf8",
+          "id": "216a2f97-e7d8-4d01-9b6c-fb21410cb7af",
           "name": "Historical Vehicle Stats",
           "request": {
             "name": "Historical Vehicle Stats",
@@ -1970,7 +2016,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "574181b6-b0c0-4090-9099-0d4ce10f727f",
+                "id": "bac41fdb-8fbd-42a7-a44f-a51569a5ad95",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -1988,7 +2034,7 @@
       "event": []
     },
     {
-      "id": "0813d181-4070-4fcc-a42f-a43f884ac17f",
+      "id": "ae7abd9d-9df5-412d-b345-c5bd57474a44",
       "name": "Webhook Events",
       "description": {
         "content": "",
@@ -2017,7 +2063,7 @@
     }
   ],
   "info": {
-    "_postman_id": "db450995-766f-4c2e-b202-77272e4a2991",
+    "_postman_id": "20a7bfee-730a-43a2-a8b1-fe01023e0292",
     "name": "Telematics API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
