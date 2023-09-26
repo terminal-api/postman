@@ -2,7 +2,7 @@
 
 ## Usage 🚀
 
-1. Download the generated collection from [./postman/terminal-api.postman_collection.json](./postman/terminal-api.postman_collection.json) ✨
+1. Download the generated collection from [here](./postman/terminal-api.postman_collection.json) ✨
 2. Import the collection into Postman
 3. Setup a Postman environment (learn more about Postman environments [here](https://learning.postman.com/docs/sending-requests/managing-environments/)):
     - Sandbox:
