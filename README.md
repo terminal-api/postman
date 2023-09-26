@@ -2,17 +2,18 @@
 
 ## Usage 🚀
 
-1. Download the generated collection [here](./postman) ✨
+0. Install [Postman](https://www.postman.com/downloads/) if you haven't already
+1. Download the generated collection [here](./postman/terminal.postman_collection.json) ✨
 2. Import the collection into Postman
-3. Setup a Postman environment (learn more about Postman environments [here](https://learning.postman.com/docs/sending-requests/managing-environments/)):
+3. Setup a Postman environment for both Sandbox + Production ([learn more](https://learning.postman.com/docs/sending-requests/managing-environments/)):
     - Sandbox:
-      - Create a new environment called `Terminal Sandbox`
-      - Add a variable called `secretKey` and set it to your Terminal Sandbox Secret key
-      - Add a variable called `baseUrl` and set it to `https://api.sandbox.withterminal.com/tsp/v1`
+      - Download the template sandbox environment [here](./postman/environments/sandbox.postman_environment.json)
+      - Import environment into Postman
+      - Set `secretKey` to your Terminal Sandbox Secret key
     - Production:
-      - Create a new environment called `Terminal Production`
-      - Add a variable called `secretKey` and set it to your Terminal Production Secret key
-      - Add a variable called `baseUrl` and set it to `https://api.withterminal.com/tsp/v1`
+      - Download the template production environment [here](./postman/environments/production.postman_environment.json)
+      - Import environment into Postman
+      - Set `secretKey` to your Terminal Production Secret key
 4. Select the environment you want to use in the top right corner of Postman
 5. Make requests!
 
@@ -43,7 +44,7 @@ This collection uses the following variables to make it easy to chain requests t
 
 ### Connection Tokens
 
-Terminal uses connection tokens to authenticate requests targeting a specific connection. Please set a `connectionToken` variable in your collection's variables to use connection tokens. You can retrieve connection tokens in the dashboard or by calling `GET /connections`.
+Terminal uses connection tokens to authenticate requests targeting a specific connection. Please set a `connectionToken` variable in your environment variables if you'd like to act on a specific connection. You can retrieve connection tokens in the dashboard or by calling `GET /connections`.
 
 > **Note:** When calling `POST /public-token/exchange` the connection token is set automatically for you upon successful exchange.
 

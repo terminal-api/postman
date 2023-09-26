@@ -115,10 +115,20 @@
           "insert": false
         },
         {
+          "key": "startDate",
+          "disable": true,
+          "insert": false
+        },
+        {
+          "key": "endDate",
+          "disable": true,
+          "insert": false
+        },
+        {
           "key": "expand",
           "disable": true,
           "insert": false,
-          "value": "vehicle"
+          "value": ""
         },
         {
           "key": "raw",
@@ -177,7 +187,7 @@
       ]
     },
     {
-      "openApiOperation": "GET::/vehicles/{id}",
+      "openApiOperationId": "listVehicles",
       "overwriteRequestPathVariables": [
         {
           "key": "id",
@@ -187,7 +197,14 @@
       ]
     },
     {
-      "openApiOperation": "GET::/vehicles/{vehicleId}/locations",
+      "openApiOperationId": "listLatestVehicleLocations"
+    },
+    {
+      "openApiOperationId": "listHistoricalVehicleLocations",
+      "excludeForOperations": [
+        "GET::/vehicles/locations",
+        "GET::/vehicles/{id}/stats/historical"
+      ],
       "overwriteRequestPathVariables": [
         {
           "key": "vehicleId",
@@ -197,7 +214,7 @@
       ]
     },
     {
-      "openApiOperation": "GET::/vehicles/{vehicleId}/stats/historical",
+      "openApiOperationId": "listHistoricalVehicleStats",
       "overwriteRequestPathVariables": [
         {
           "key": "vehicleId",
