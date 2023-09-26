@@ -4,7 +4,7 @@
 
 1. Download the generated collection [here](./postman/terminal.postman_collection.json) ✨
 2. Import the collection into Postman
-3. Setup a Postman environment (learn more about Postman environments [here](https://learning.postman.com/docs/sending-requests/managing-environments/)):
+3. Setup a Postman environment for both Sandbox + Production (learn more about Postman environments [here](https://learning.postman.com/docs/sending-requests/managing-environments/)):
     - Sandbox:
       - Download the template sandbox environment [here](./postman/environments/sandbox.postman_environment.json)
       - Import environment into Postman
