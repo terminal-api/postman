@@ -6,13 +6,13 @@
 2. Import the collection into Postman
 3. Setup a Postman environment (learn more about Postman environments [here](https://learning.postman.com/docs/sending-requests/managing-environments/)):
     - Sandbox:
-      - Create a new environment called `Terminal Sandbox`
-      - Add a variable called `secretKey` and set it to your Terminal Sandbox Secret key
-      - Add a variable called `baseUrl` and set it to `https://api.sandbox.withterminal.com/tsp/v1`
+      - Download the template environment from [`./postman/environments/sandbox.postman_environment.json`](`./postman/environments/sandbox.postman_environment.json`)
+      - Import environment into Postman
+      - Set `secretKey` to your Terminal Sandbox Secret key
     - Production:
-      - Create a new environment called `Terminal Production`
-      - Add a variable called `secretKey` and set it to your Terminal Production Secret key
-      - Add a variable called `baseUrl` and set it to `https://api.withterminal.com/tsp/v1`
+      - Download the template environment from [`./postman/environments/production.postman_environment.json`](`./postman/environments/production.postman_environment.json`)
+      - Import environment into Postman
+      - Set `secretKey` to your Terminal Production Secret key
 4. Select the environment you want to use in the top right corner of Postman
 5. Make requests!
 
