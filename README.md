@@ -43,7 +43,7 @@ This collection uses the following variables to make it easy to chain requests t
 
 ### Connection Tokens
 
-Terminal uses connection tokens to authenticate requests targeting a specific connection. Please set a `connectionToken` variable in your collection's variables to use connection tokens. You can retrieve connection tokens in the dashboard or by calling `GET /connections`.
+Terminal uses connection tokens to authenticate requests targeting a specific connection. Please set a `connectionToken` variable in your environment variables if you'd like to act on a specific connection. You can retrieve connection tokens in the dashboard or by calling `GET /connections`.
 
 > **Note:** When calling `POST /public-token/exchange` the connection token is set automatically for you upon successful exchange.
 
