@@ -2,6 +2,7 @@
 
 ## Usage 🚀
 
+0. Install [Postman](https://www.postman.com/downloads/) if you haven't already
 1. Download the generated collection [here](./postman/terminal.postman_collection.json) ✨
 2. Import the collection into Postman
 3. Setup a Postman environment for both Sandbox + Production ([learn more](https://learning.postman.com/docs/sending-requests/managing-environments/)):
